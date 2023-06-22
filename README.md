@@ -16,7 +16,7 @@ When total flux F<sub>tot</sub> is decomposed into the point source (AGN) F<sub>
 
   When the quasar templates are chosen, the code minimizes ||(F<sub>tot</sub>-F<sub>model</sub>)+(F<sub>AGN</sub> - F<sub>1</sub> - F<sub>2</sub>)||<sub>2</sub>.
 
-See descriptions: [Tsukui et al. 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract)
+See descriptions: [Tsukui, Wisnioski, Krumholz, Battisti 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract)
 
 ### Contacts
 Takafumi Tsukui: tsukuitk23@gmail.com
