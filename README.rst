@@ -1,5 +1,12 @@
-``Stardust``: Composite Template Fitting Software
+Modified Version of ``Stardust``: Composite Template Fitting Software
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Modified stardust code, allowing additional constraints for AGN fluxes which may be from an image decomposition.
+
+For the original version, please see `here <https://github.com/VasilyKokorev/stardust>`__ and `Kokorev et al. 2021 <https://ui.adsabs.harvard.edu/abs/2021ApJ...921...40K/abstract>`__.
+
+-------
+
 **Stardust** is a Python package which is designed to extract galaxy properties by fitting their multiwavelength data to a set of linearly combined templates. 
 
 This algorithm brings together three different families of templates:
