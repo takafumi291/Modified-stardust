@@ -21,7 +21,7 @@ See descriptions: [Tsukui, Wisnioski, Krumholz and Battisti, 2023](https://ui.ad
 ### Contacts
 Takafumi Tsukui: tsukuitk23@gmail.com
 
-### README of the original stardust below (The same installation instruction and requirements applies)
+### README of the original stardust below (The same installation instructions and requirements apply)
 
 ------
 
