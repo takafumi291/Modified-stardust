@@ -3,7 +3,7 @@ For the original version, please see [here](https://github.com/VasilyKokorev/sta
 
 ------
 
-### This Modified stardust code allows AGN fluxes as additional constraints.
+## This Modified stardust code allows AGN fluxes as additional constraints.
 The original code fit the model SED F<sub>model</sub>=F<sub>1</sub>+F<sub>2</sub>+F<sub>3</sub> to the data SED F<sub>tot</sub> by minimizing ||F<sub>tot</sub> - F<sub>model</sub>||<sub>2</sub>, where 
 
   F<sub>1</sub>=UV/Optical stellar light templates or [Shen et al. 2016](https://ui.adsabs.harvard.edu/abs/2016ApJ...817...55S) quasar temperates  
@@ -18,10 +18,15 @@ When total flux F<sub>tot</sub> is decomposed into the point source (AGN) F<sub>
 
 See descriptions: [Tsukui, Wisnioski, Krumholz and Battisti, 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract)
 
-### Contacts
+##Usage
+
+For a quick example of how to use and reproduce the result [Tsukui et al. 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract),  
+See [here](https://github.com/takafumi291/stardust/blob/master/modified_example/Modified_Stardust_Example.ipynb) 
+
+## Contacts
 Takafumi Tsukui: tsukuitk23@gmail.com
 
-### README of the original stardust below (The same installation instructions and requirements apply)
+## README of the original stardust below (The same installation instructions and requirements apply)
 
 ------
 
