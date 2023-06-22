@@ -1316,7 +1316,7 @@ class ctf(object):
 
         #if return_output:
         output = {'lambda':sed_x,'templ_optical':sed_opt,'templ_agn':sed_agn,'templ_ir':sed_ir,
-            'pivot':self.wav[idx],'fobs':self.fnu[idx],'efobs':self.efnu[idx],'templ_radio':sed_radio}
+                  'pivot':self.wav[idx],'fobs':self.fnu[idx],'efobs':self.efnu[idx],'templ_radio':sed_radio}
             
 
         return fig,output
