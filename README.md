@@ -25,7 +25,7 @@ See [here](https://github.com/takafumi291/stardust/blob/master/modified_example/
 ## Contacts
 Takafumi Tsukui: tsukuitk23@gmail.com
 
-## README of the original stardust below (The same installation instructions and requirements apply)
+## README of the original code below (The same requirements and installation apply)
 
 ------
 
