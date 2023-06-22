@@ -242,6 +242,11 @@ class ctf(object):
             self.efnu=np.concatenate((self.efnu,self.efnu_extra),axis=1)
             self.wav=np.concatenate((self.wav,self.wav_extra),axis=1)
 
+        if self.config['AGN_EXTRA_BANDS']: #added by TT 
+            self.add_agn_extra_bands()
+            self.fnu=np.concatenate((self.fnu,self.agn_fnu_extra),axis=1)
+            self.efnu=np.concatenate((self.efnu,self.agn_efnu_extra),axis=1)
+            self.wav=np.concatenate((self.wav,self.agn_wav_extra),axis=1) 
 
         self.fnu*=self.convert_to_mjy(self.config['FLUX_UNIT'])
         self.efnu*=self.convert_to_mjy(self.config['FLUX_UNIT'])
@@ -309,7 +314,32 @@ class ctf(object):
         self.wav_extra=np.array((np.array(self.data[wavelength_extra])).tolist())
     
         return None
-        
+
+    def add_agn_extra_bands(self):
+        """
+        ADD THE CUSTOM FILTERS AND BANDS TO CATALOGUE
+        Added by TT 22/11/14
+        """
+
+        if self.config['AGN_EXTRA_BANDS']: #Redundant but just to be safe
+            xtra_bnds=np.loadtxt(self.config['AGN_EXTRA_BANDS_FILE'],dtype='str')
+        try:
+            agn_wavelength_extra=xtra_bnds[:,0].tolist()
+            agn_bands_extra=xtra_bnds[:,1].tolist()
+            agn_err_bands_extra=xtra_bnds[:,2].tolist()
+        except:
+            agn_wavelength_extra=[np.array(xtra_bnds[0]).tolist()]
+            agn_bands_extra=[np.array(xtra_bnds[1]).tolist()]
+            agn_err_bands_extra=[np.array(xtra_bnds[2]).tolist()]
+        if self.config['VERBOSE']==1:
+            print(f'Added extra bands from ' + self.config['AGN_EXTRA_BANDS_FILE'])
+
+        self.agn_fnu_extra=np.array((np.array(self.data[agn_bands_extra])).tolist())
+        self.agn_efnu_extra=np.array((np.array(self.data[agn_err_bands_extra])).tolist())
+        self.agn_wav_extra=np.array((np.array(self.data[agn_wavelength_extra])).tolist())
+
+        return None
+
 
     def filter_diagnostic(self):
         """
@@ -620,7 +650,7 @@ class ctf(object):
         QSO[1,:]=qso_templ2['flux']
         QSO[2,:]=qso_templ3['flux']
         QSO[3,:]=qso_templ4['flux']
-        QSO[0,:]=qso_templ5['flux']
+        QSO[4,:]=qso_templ5['flux'] # bug fixed by TT 22/11/14
 
         return QSO,qso_wave
 
@@ -678,6 +708,14 @@ class ctf(object):
             self.fconv_agn_extra = np.zeros((self.wav_extra.shape[1],self.agn_grid.shape[1]))
             self.fconv_ir_extra = np.zeros((self.wav_extra.shape[1],self.ir_grid.shape[1],self.ir_grid.shape[2],self.ir_grid.shape[3]))
 
+        if self.config['AGN_EXTRA_BANDS']:    #### added by TT 22/11/14
+            agn_extrawav = self.agn_wav_extra[idx]
+            agn_filt_extra=np.array(self.make_extra_filters(agn_extrawav,5,0.2))
+            self.fconv_optical_extra_agn = np.zeros((self.agn_wav_extra.shape[1],self.optical_grid.shape[1]))
+            self.fconv_agn_extra_agn = np.zeros((self.agn_wav_extra.shape[1],self.agn_grid.shape[1]))
+            self.fconv_ir_extra_agn = np.zeros((self.agn_wav_extra.shape[1],self.ir_grid.shape[1],self.ir_grid.shape[2],self.ir_grid.shape[3]))
+
+
         if self.config['FIT_STELLAR']:
             for i,_ in enumerate(self.optical_grid[0,:]):
                 for f,_ in enumerate(self.sfx):
@@ -687,6 +725,9 @@ class ctf(object):
                     for ff,_ in enumerate(extrawav):
                         self.fconv_optical_extra[ff,i]=self.convolver(sedx,self.optical_grid[:,i],filt_extra[ff][0],filt_extra[ff][1],mode='opt')
 
+                if self.config['AGN_EXTRA_BANDS']:         #### added by TT 22/11/14
+                    for fff,_ in enumerate(agn_extrawav):
+                        self.fconv_optical_extra_agn[fff,i]=self.convolver(sedx,self.optical_grid[:,i],agn_filt_extra[fff][0],agn_filt_extra[fff][1],mode='opt')
 
         if self.config['FIT_AGN']:
             for i,_ in enumerate(self.agn_grid[0,:]):
@@ -697,6 +738,9 @@ class ctf(object):
                     for ff,_ in enumerate(extrawav):
                         self.fconv_agn_extra[ff,i]=self.convolver(sedx,self.agn_grid[:,i],filt_extra[ff][0],filt_extra[ff][1],mode='ir')
 
+                if self.config['AGN_EXTRA_BANDS']:         #### added by TT 22/11/14
+                    for fff,_ in enumerate(agn_extrawav):
+                        self.fconv_agn_extra_agn[fff,i]=self.convolver(sedx,self.agn_grid[:,i],agn_filt_extra[fff][0],agn_filt_extra[fff][1],mode='ir')
 
         if self.config['FIT_DUST']:
             for i,_ in enumerate(self.ir_grid[0,:,0,0]):
@@ -710,12 +754,21 @@ class ctf(object):
                             for ff,_ in enumerate(extrawav):
                                 self.fconv_ir_extra[ff,i,j,k]=self.convolver(sedx,sedy,filt_extra[ff][0],filt_extra[ff][1],mode='ir')
 
+                        if self.config['AGN_EXTRA_BANDS']:         #### added by TT 22/11/14
+                            for fff,_ in enumerate(agn_extrawav):
+                                self.fconv_ir_extra_agn[fff,i,j,k]=0. #assume host galaxy does not contribute point source 
 
 
         if self.config['EXTRA_BANDS']:
             self.fconv_optical=np.concatenate([self.fconv_optical,self.fconv_optical_extra],axis=0)
             self.fconv_agn=np.concatenate([self.fconv_agn,self.fconv_agn_extra],axis=0)
             self.fconv_ir=np.concatenate([self.fconv_ir,self.fconv_ir_extra],axis=0)
+
+        if self.config['AGN_EXTRA_BANDS']:         #### added by TT 22/11/14
+            self.fconv_optical=np.concatenate([self.fconv_optical,self.fconv_optical_extra_agn],axis=0)
+            self.fconv_agn=np.concatenate([self.fconv_agn,self.fconv_agn_extra_agn],axis=0)
+            self.fconv_ir=np.concatenate([self.fconv_ir,self.fconv_ir_extra_agn],axis=0)
+        
         #if self.config['VERBOSE']==2:
 
         #if norm:
