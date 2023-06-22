@@ -6,6 +6,7 @@ For the original version, please see [here](https://github.com/VasilyKokorev/sta
 
 The original code fits total SED with the model SED which is the
 
+
 ------
 
 **Stardust** is a Python package designed to extract galaxy properties by fitting their multiwavelength data to a set of linearly combined templates.
@@ -63,7 +64,3 @@ Filter curves are adopted from [eazy-py](https://github.com/gbrammer/eazy-py) by
 ## Contacts
 
 Vasily Kokorev: vasily.kokorev.astro@gmail.com / kokorev@astro.rug.nl
-
-
-
-
