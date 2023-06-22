@@ -1,11 +1,27 @@
 # Modified Version of "Stardust": Composite Template Fitting Software
-
-Modified stardust code, allowing additional constraints for AGN fluxes which may be from an image decomposition.
-
 For the original version, please see [here](https://github.com/VasilyKokorev/stardust) and [Kokorev et al. 2021](https://ui.adsabs.harvard.edu/abs/2021ApJ...921...40K/abstract).
 
-The original code fits total SED with the model SED which is the
+------
 
+### This Modified stardust code allows AGN fluxes as additional constraints.
+The original code fit the model SED F<sub>model</sub>=F<sub>1</sub>+F<sub>2</sub>+F<sub>3</sub> to the data SED F<sub>tot</sub> by minimizing ||F<sub>tot</sub> - F<sub>model</sub>||<sub>2</sub>, where 
+
+  F<sub>1</sub>=UV/Optical stellar light templates or [Shen et al. 2016](https://ui.adsabs.harvard.edu/abs/2016ApJ...817...55S) quasar temperates  
+  F<sub>2</sub>=AGN heated dust in the MIR  
+  F<sub>3</sub>=IR dust reprocessed stellar light in the NIR-FIR  
+
+When total flux F<sub>tot</sub> is decomposed into the point source (AGN) F<sub>AGN</sub> and rest F<sub>host galaxy</sub> by image decomposition, this modified code can include this additional constraint by providing F<sub>AGN</sub> as AGN_EXTRA_BANDS_FILE and setting AGN_EXTRA_BANDS=1 in the config file (similar to setting EXTRA_BANDS_FILE and EXTRA_BANDS=1). 
+
+  When the stellar light templates are chosen, the code minimizes ||(F<sub>tot</sub>-F<sub>model</sub>)+(F<sub>AGN</sub> - F<sub>2</sub>)||<sub>2</sub>.
+
+  When the quasar templates are chosen, the code minimizes ||(F<sub>tot</sub>-F<sub>model</sub>)+(F<sub>AGN</sub> - F<sub>1</sub> - F<sub>2</sub>)||<sub>2</sub>.
+
+See descriptions: [Tsukui, Wisnioski, Krumholz and Battisti, 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract)
+
+### Contacts
+Takafumi Tsukui: tsukuitk23@gmail.com
+
+### README of the original stardust below (The same installation instructions and requirements apply)
 
 ------
 
@@ -38,10 +54,11 @@ For MacOS users, it is recommended to create a separate **Python 3.6.10** enviro
 
 You can then pull Stardust and install it with pip.
 
->$ git clone https://github.com/VasilyKokorev/stardust.git
->$ cd stardust
->$ pip install .
-
+```
+$ git clone https://github.com/VasilyKokorev/stardust.git
+$ cd stardust
+$ pip install .
+```
 
 ## Usage
 
