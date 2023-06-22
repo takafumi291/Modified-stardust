@@ -18,10 +18,9 @@ When total flux F<sub>tot</sub> is decomposed into the point source (AGN) F<sub>
 
 See descriptions: [Tsukui, Wisnioski, Krumholz and Battisti, 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract)
 
-##Usage
+## Usage
 
-For a quick example of how to use and reproduce the result [Tsukui et al. 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract),  
-See [here](https://github.com/takafumi291/stardust/blob/master/modified_example/Modified_Stardust_Example.ipynb) 
+See [here](https://github.com/takafumi291/stardust/blob/master/modified_example/Modified_Stardust_Example.ipynb), for a quick example of how to use it and reproduce the result of [Tsukui et al. 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract).
 
 ## Contacts
 Takafumi Tsukui: tsukuitk23@gmail.com
