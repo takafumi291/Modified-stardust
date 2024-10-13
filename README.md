@@ -18,7 +18,7 @@ When total flux F<sub>tot</sub> is decomposed into the point source (AGN) F<sub>
 
 See descriptions: [Tsukui, Wisnioski, Krumholz and Battisti, 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230207272T/abstract)
 
-![Visual illustration of modified stardust](Stardust.pdf)
+![Visual illustration of modified stardust](stardust.jpg)
 
 ## Usage
 
